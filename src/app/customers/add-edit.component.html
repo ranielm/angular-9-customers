@@ -63,7 +63,7 @@
             <select formControlName="state" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
             <option value>Selecione o estado</option>
-            <option *ngFor="let suit of oppoSuits">{{suit}}</option>
+            <option *ngFor="let stateSelected of states">{{stateSelected.name}}</option>
             </select>
             <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
                 <div *ngIf="f.state.errors.required">Informar o estado é obrigatório</div>

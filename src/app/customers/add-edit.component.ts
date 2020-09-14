@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { CustomersService, AlertService } from '@app/_services';
+import { CustomersService, AlertService, StateService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
-    oppoSuits: any = ['Men', 'Women', 'Boys', 'Inspiration']
+    states: any = []
 
     form: FormGroup;
     id: string;
@@ -22,12 +22,18 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private customersService: CustomersService,
         private alertService: AlertService,        
+        private stateService: StateService
     ) {}
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
         this.isAddMode = !this.id;
         
+        this.stateService.getAll()
+            .pipe(first())
+            .subscribe(states => this.states = states);
+
+        console.log(this.states);
         // password not required in edit mode
         const passwordValidators = [Validators.minLength(6)];
         if (this.isAddMode) {

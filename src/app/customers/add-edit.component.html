@@ -4,14 +4,16 @@
     <div class="form-row">
         <div class="form-group col">
             <label for="name">Nome</label>
-            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <input type="text" formControlName="name" placeholder="Informe o nome" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
             <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
                 <div *ngIf="f.name.errors.required">Informar o nome é obrigatório</div>
             </div>
         </div>
         <div class="form-group col">
             <label for="docId">CPF</label>
-            <input type="text" [imask]="{mask: '000.000.000-00'}" formControlName="docId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.docId.errors }" maxlength="14"  minlength="14"/>
+            <input type="text" [imask]="{mask: '000.000.000-00'}" placeholder="Informe o CPF" formControlName="docId" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.docId.errors }" maxlength="14" minlength="14" />
             <div *ngIf="submitted && f.docId.errors" class="invalid-feedback">
                 <div *ngIf="f.docId.errors.required">Informar o CPF é obrigatório</div>
                 <div *ngIf="f.docId.errors.minlength">Informe um CPF válido</div>
@@ -21,7 +23,8 @@
     <div class="form-row">
         <div class="form-group col">
             <label for="zipCode">CEP</label>
-            <input type="text" [imask]="{mask: '00000-000'}" formControlName="zipCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" maxlength="9"  minlength="9"/>
+            <input type="text" [imask]="{mask: '00000-000'}" placeholder="Informe o CEP" formControlName="zipCode" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" maxlength="9" minlength="9" />
             <div *ngIf="submitted && f.zipCode.errors" class="invalid-feedback">
                 <div *ngIf="f.zipCode.errors.required">Informar o CEP é obrigatório</div>
                 <div *ngIf="f.zipCode.errors.minlength">Informe um CEP válido</div>
@@ -29,34 +32,41 @@
         </div>
         <div class="form-group col">
             <label for="address">Logradouro</label>
-            <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+            <input type="text" formControlName="address" placeholder="Informe o logradouro" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
             <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
-                <div *ngIf="f.address.errors.required">Informar o Logradouro é obrigatório</div>
+                <div *ngIf="f.address.errors.required">Informar o logradouro é obrigatório</div>
             </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col">
             <label for="district">Bairro</label>
-            <input type="text" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" />
+            <input type="text" formControlName="district" placeholder="Informe o bairro" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.district.errors }" />
             <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
-                <div *ngIf="f.district.errors.required">Informar o Bairro é obrigatório</div>
+                <div *ngIf="f.district.errors.required">Informar o bairro é obrigatório</div>
             </div>
         </div>
         <div class="form-group col">
             <label for="locality">Localidade</label>
-            <input type="text" formControlName="locality" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }" />
+            <input type="text" formControlName="locality" placeholder="Informe a localidade" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.locality.errors }" />
             <div *ngIf="submitted && f.locality.errors" class="invalid-feedback">
-                <div *ngIf="f.locality.errors.required">Informar o Localidade é obrigatório</div>
+                <div *ngIf="f.locality.errors.required">Informar a localidade é obrigatório</div>
             </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col">
             <label for="state">UF</label>
-            <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+            <select formControlName="state" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+            <option value>Selecione o estado</option>
+            <option *ngFor="let suit of oppoSuits">{{suit}}</option>
+            </select>
             <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
-                <div *ngIf="f.state.errors.required">Informar o Estado é obrigatório</div>
+                <div *ngIf="f.state.errors.required">Informar o estado é obrigatório</div>
             </div>
         </div>
     </div>

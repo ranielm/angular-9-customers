@@ -11,18 +11,20 @@
         </div>
         <div class="form-group col">
             <label for="docId">CPF</label>
-            <input type="text" formControlName="docId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.docId.errors }" />
+            <input type="text" [imask]="{mask: '000.000.000-00'}" formControlName="docId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.docId.errors }" maxlength="14"  minlength="14"/>
             <div *ngIf="submitted && f.docId.errors" class="invalid-feedback">
                 <div *ngIf="f.docId.errors.required">Informar o CPF é obrigatório</div>
+                <div *ngIf="f.docId.errors.minlength">Informe um CPF válido</div>
             </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col">
             <label for="zipCode">CEP</label>
-            <input type="text" formControlName="zipCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" />
+            <input type="text" [imask]="{mask: '00000-000'}" formControlName="zipCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" maxlength="9"  minlength="9"/>
             <div *ngIf="submitted && f.zipCode.errors" class="invalid-feedback">
                 <div *ngIf="f.zipCode.errors.required">Informar o CEP é obrigatório</div>
+                <div *ngIf="f.zipCode.errors.minlength">Informe um CEP válido</div>
             </div>
         </div>
         <div class="form-group col">

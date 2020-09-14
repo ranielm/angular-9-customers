@@ -43,7 +43,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function authenticate() {
             const { username, password } = body;
             const user = users.find(x => x.username === username && x.password === password);
-            if (!user) return error('Username or password is incorrect');
+            if (!user) return error('Usuário ou senha incorretos');
             return ok({
                 id: user.id,
                 username: user.username,
@@ -57,7 +57,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const user = body
 
             if (users.find(x => x.username === user.username)) {
-                return error('Username "' + user.username + '" is already taken')
+                return error('Usuário "' + user.username + '" já está sendo usado')
             }
 
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -115,7 +115,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function unauthorized() {
-            return throwError({ status: 401, error: { message: 'Unauthorised' } });
+            return throwError({ status: 401, error: { message: 'Não autorizado' } });
         }
 
         function isLoggedIn() {

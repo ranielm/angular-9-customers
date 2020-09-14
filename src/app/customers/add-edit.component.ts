@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { CustomersService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -17,7 +17,7 @@ export class AddEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        private customersService: CustomersService,
         private alertService: AlertService
     ) {}
 
@@ -32,19 +32,26 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', passwordValidators]
+            name: ['', Validators.required],
+            docId: ['', Validators.required],
+            zipCode: ['', Validators.required],
+            address: ['', Validators.required],
+            district: ['', Validators.required],
+            locality: ['', Validators.required],
+            state: ['', Validators.required]
         });
 
         if (!this.isAddMode) {
-            this.accountService.getById(this.id)
+            this.customersService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.firstName.setValue(x.firstName);
-                    this.f.lastName.setValue(x.lastName);
-                    this.f.username.setValue(x.username);
+                    this.f.name.setValue(x.name);
+                    this.f.docId.setValue(x.docId);
+                    this.f.zipCode.setValue(x.zipCode);
+                    this.f.address.setValue(x.address);
+                    this.f.district.setValue(x.district);
+                    this.f.locality.setValue(x.locality);
+                    this.f.state.setValue(x.state);
                 });
         }
     }
@@ -72,11 +79,11 @@ export class AddEditComponent implements OnInit {
     }
 
     private createUser() {
-        this.accountService.register(this.form.value)
+        this.customersService.register(this.form.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                    this.alertService.success('Cliente cadastrado com sucesso', { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
                 error => {
@@ -86,11 +93,11 @@ export class AddEditComponent implements OnInit {
     }
 
     private updateUser() {
-        this.accountService.update(this.id, this.form.value)
+        this.customersService.update(this.id, this.form.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
+                    this.alertService.success('Atualizado com sucesso', { keepAfterRouteChange: true });
                     this.router.navigate(['..', { relativeTo: this.route }]);
                 },
                 error => {

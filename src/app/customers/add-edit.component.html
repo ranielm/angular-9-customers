@@ -1,0 +1,68 @@
+﻿<h1 *ngIf="isAddMode">Cadastar Cliente</h1>
+<h1 *ngIf="!isAddMode">Editar Cliente</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="name">Nome</label>
+            <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Informar o nome é obrigatório</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="docId">CPF</label>
+            <input type="text" formControlName="docId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.docId.errors }" />
+            <div *ngIf="submitted && f.docId.errors" class="invalid-feedback">
+                <div *ngIf="f.docId.errors.required">Informar o CPF é obrigatório</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="zipCode">CEP</label>
+            <input type="text" formControlName="zipCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipCode.errors }" />
+            <div *ngIf="submitted && f.zipCode.errors" class="invalid-feedback">
+                <div *ngIf="f.zipCode.errors.required">Informar o CEP é obrigatório</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="address">Logradouro</label>
+            <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                <div *ngIf="f.address.errors.required">Informar o Logradouro é obrigatório</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="district">Bairro</label>
+            <input type="text" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" />
+            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+                <div *ngIf="f.district.errors.required">Informar o Bairro é obrigatório</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="locality">Localidade</label>
+            <input type="text" formControlName="locality" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }" />
+            <div *ngIf="submitted && f.locality.errors" class="invalid-feedback">
+                <div *ngIf="f.locality.errors.required">Informar o Localidade é obrigatório</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="state">UF</label>
+            <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                <div *ngIf="f.state.errors.required">Informar o Estado é obrigatório</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Salvar
+        </button>
+        <a routerLink="/customers" class="btn btn-link">Cancelar</a>
+    </div>
+</form>

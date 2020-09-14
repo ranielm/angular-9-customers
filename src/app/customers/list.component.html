@@ -1,0 +1,31 @@
+﻿<h1>Clientes</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Cadastar Cliente</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Nome</th>
+            <th style="width: 30%">CPF</th>
+            <th style="width: 30%">CEP</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers">
+            <td>{{customer.name}}</td>
+            <td>{{customer.cpf}}</td>
+            <td>{{customer.cep}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{customer.id}}" class="btn btn-sm btn-primary mr-1">Editar</a>
+                <button (click)="deleteCustomer(customer.id)" class="btn btn-sm btn-danger btn-delete-customer" [disabled]="customer.isDeleting">
+                    <span *ngIf="customer.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!customer.isDeleting">Remover</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!customers">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center">Não há nenhum cliente cadastrado ainda</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

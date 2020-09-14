@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, Type } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -9,26 +9,28 @@ import { CustomersService, AlertService, StateService } from '@app/_services';
 export class AddEditComponent implements OnInit {
     states: any = []
 
+    closeResult: string;
+
     form: FormGroup;
     id: string;
     isAddMode: boolean;
     loading = false;
     submitted = false;
-    mask:string;
+    mask: string;
 
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private customersService: CustomersService,
-        private alertService: AlertService,        
+        private alertService: AlertService,
         private stateService: StateService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
         this.isAddMode = !this.id;
-        
+
         this.stateService.getAll()
             .pipe(first())
             .subscribe(states => this.states = states);

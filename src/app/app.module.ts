@@ -11,7 +11,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
-import {IMaskModule} from 'angular-imask';
+import { IMaskModule } from 'angular-imask';;
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
     imports: [
@@ -19,8 +20,8 @@ import {IMaskModule} from 'angular-imask';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        IMaskModule
-    ],
+        IMaskModule,        
+        NgbModule],
     declarations: [
         AppComponent,
         AlertComponent,

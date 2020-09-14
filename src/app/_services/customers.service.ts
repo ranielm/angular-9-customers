@@ -20,18 +20,8 @@ export class CustomersService {
         this.customer = this.userSubject.asObservable();
     }
 
-    public get customerValue(): Customer {
+    public get userValue(): Customer {
         return this.userSubject.value;
-    }
-
-    login(customername, password) {
-        return this.http.post<Customer>(`${environment.apiUrl}/customers/authenticate`, { customername, password })
-            .pipe(map(customer => {
-                // store customer details and jwt token in local storage to keep customer logged in between page refreshes
-                localStorage.setItem('customer', JSON.stringify(customer));
-                this.userSubject.next(customer);
-                return customer;
-            }));
     }
 
     logout() {
@@ -57,10 +47,9 @@ export class CustomersService {
         return this.http.put(`${environment.apiUrl}/customers/${id}`, params)
             .pipe(map(x => {
                 // update stored customer if the logged in customer updated their own record
-                console.log(this.userSubject)
-                if (id == this.customerValue.id) {
+                if (id == this.userValue.id) {
                     // update local storage
-                    const customer = { ...this.customerValue, ...params };
+                    const customer = { ...this.userValue, ...params };
                     localStorage.setItem('customer', JSON.stringify(customer));
 
                     // publish updated customer to subscribers
@@ -74,7 +63,7 @@ export class CustomersService {
         return this.http.delete(`${environment.apiUrl}/customers/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in customer deleted their own record
-                if (id == this.customerValue.id) {
+                if (id == this.userValue.id) {
                     this.logout();
                 }
                 return x;

@@ -5,26 +5,68 @@
         <tr>
             <th style="width: 30%">Nome</th>
             <th style="width: 30%">CPF</th>
-            <th style="width: 30%">CEP</th>
+            <th style="width: 30%">Endereço</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let customer of customers">
             <td>{{customer.name}}</td>
-            <td>{{customer.cpf}}</td>
-            <td>{{customer.cep}}</td>
+            <td>{{customer.docId}}</td>
+            <td>{{customer.address}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{customer.id}}" class="btn btn-sm btn-primary mr-1">Editar</a>
-                <button (click)="deleteCustomer(customer.id)" class="btn btn-sm btn-danger btn-delete-customer" [disabled]="customer.isDeleting">
+                <a (click)="open(edit)" ngbAutofocus class="btn btn-sm btn-outline-info mr-1">Editar</a>
+                <button (click)="open(remove)" class="btn btn-sm btn-danger btn-delete-customer"
+                    [disabled]="customer.isDeleting">
                     <span *ngIf="customer.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!customer.isDeleting">Remover</span>
                 </button>
             </td>
+            <ng-template #edit let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-title">Editar Cliente</h4>
+                    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                        (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Você tem certeza que deseja editar <strong>{{customer.name}}</strong>?</p>
+                    <p>Você será redirecionado para uma página onde as informações desse cliente estarão disponíveis
+                        para edição.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary"
+                        (click)="modal.dismiss('cancel click')">Cancelar</button>
+                    <a routerLink="edit/{{customer.id}}" (click)="modal.dismiss('cancel click')" ngbAutofocus class="btn btn-success">Editar</a>
+                </div>
+            </ng-template>
+            <ng-template #remove let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-title">Remover Cliente</h4>
+                    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+                        (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Você tem certeza que deseja remover <strong>{{customer.name}}</strong>?</p>
+                    <p>Todas as informações relacionadas a esse cliente serão deletadas permanentemente
+                        <span class="text-danger">Essa operação não poderá ser desfeita.</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary"
+                        (click)="modal.dismiss('cancel click')">Cancelar</button>
+                    <button type="button" ngbAutofocus class="btn btn-danger"
+                        (click)="modal.close(deleteCustomer(customer.id))">Remover</button>
+                </div>
+            </ng-template>
         </tr>
         <tr *ngIf="!customers">
             <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center">Não há nenhum cliente cadastrado ainda</span>
+                <span class="spinner-border spinner-border-lg align-center">---</span>
             </td>
         </tr>
     </tbody>

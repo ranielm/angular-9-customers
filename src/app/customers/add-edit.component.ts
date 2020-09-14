@@ -33,7 +33,6 @@ export class AddEditComponent implements OnInit {
             .pipe(first())
             .subscribe(states => this.states = states);
 
-        console.log(this.states);
         // password not required in edit mode
         const passwordValidators = [Validators.minLength(6)];
         if (this.isAddMode) {
@@ -82,13 +81,13 @@ export class AddEditComponent implements OnInit {
 
         this.loading = true;
         if (this.isAddMode) {
-            this.createUser();
+            this.createCustomer();
         } else {
-            this.updateUser();
+            this.updateCustomer();
         }
     }
 
-    private createUser() {
+    private createCustomer() {
         this.customersService.register(this.form.value)
             .pipe(first())
             .subscribe(
@@ -102,7 +101,7 @@ export class AddEditComponent implements OnInit {
                 });
     }
 
-    private updateUser() {
+    private updateCustomer() {
         this.customersService.update(this.id, this.form.value)
             .pipe(first())
             .subscribe(
